@@ -1,2 +1,19 @@
-Rammstein, Zeit, Armee der Tristen, 205, Zick Zack, 244, Zeit, 321, Schwarz, 258, Giftig, 188, OK, 243, Meine Tränen, 237, Angst, 224, Dicke Titten, 218, Lügen, 229, Adieu, 278, 
-MYPLAYLIST1, ME
+Playlist: Rammstein - Best Of
+Author: Rammstein
+Duration: 1800
+
+Song: Sonne, Duration: 220
+Song: Du Hast, Duration: 235
+Song: Mein Herz Brennt, Duration: 240
+Song: Ich Will, Duration: 215
+Song: Ohne Dich, Duration: 240
+
+Playlist: Rammstein - Ballads
+Author: Rammstein
+Duration: 1200
+
+Song: Engel, Duration: 300
+Song: Mutter, Duration: 280
+Song: Stirb Nicht Vor Mir, Duration: 245
+Song: Roter Sand, Duration: 230
+Song: Adieu, Duration: 275

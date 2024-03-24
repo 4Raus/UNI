@@ -1,93 +1,110 @@
 package ru.alexandra_h;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static ru.alexandra_h.Player_2.*;
 
 public class Main {
     public static void main(String[] args) {
-        Player player = new Player();
-        Scanner scanner = new Scanner(System.in);
+        Player_2 player = new Player_2();
         int choice;
+
         do {
-            System.out.println("Select an action:");
-            System.out.println("0 - Exit");
-            System.out.println("1 - Show all songs");
-            System.out.println("2 - Create a playlist (by name and author)");
-            System.out.println("3 - Load a playlist (by name)");
-            System.out.println("4 - Save a playlist (by name)");
-            System.out.println("5 - Delete a playlist (by name)");
-            System.out.println("6 - Add a song to a playlist (by playlist number, song name, artist)");
-            System.out.println("7 - Show all playlists");
-            System.out.println("8 - Remove a song from a playlist (by playlist number, song name)");
-            System.out.println("9 - Play the previous song");
-            System.out.println("10 - Play the next song");
-            System.out.println("11 - Repeat the current song");
-            choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-            switch (choice) {
-                case 0:
-                    System.out.println("Exiting the player.");
-                    break;
+            if(loadedPlaylist != null){
+                System.out.println("Текущий плейлист: " + loadedPlaylist.getName());
+                if(playingSong > -1){
+                    System.out.println("Играет песня: " + loadedPlaylist.getSong(playingSong).getName());
+                }
+            } else {
+                System.out.println("Плейлист не загружен");
+            }
+
+            System.out.print(
+                    "\n--- Меню плеера ---"+
+                    "\n 0 - Выйти\n" +
+                            " 1 - Показать список песен\n" +
+                            " 2 - Показать список плейлистов\n" +
+                            " 3 - Создать плейлист\n" +
+                            " 4 - Включить плейлист\n" +
+                            " 5 - Сохранить плейлист\n" +
+                            " 6 - Удалить плейлист\n" +
+                            " 7 - Добавить песню в плейлист\n" +
+                            " 8 - Удалить песню из плейлиста\n" +
+                            " 9 - Включить песню по номеру\n" +
+                            " 10 - Включить предыдущий трек\n" +
+                            " 11 - Включить следующий трек\n" +
+                            " 12 - Сохранить плейлисты в файл\n" +
+                            " 13 - Загрузить плейлисты из файла\n" +
+                            " >> "
+            );
+
+            try{
+                choice = scanner.nextInt();
+                System.out.print("\033[H\033[2J");
+            } catch(InputMismatchException e){
+                clearInput();
+                System.out.print("\033[H\033[2J");
+                System.out.println("Введено неверное число!");
+                continue;
+            }
+
+            if(choice == 0) break;
+
+            switch(choice){
                 case 1:
-                    player.showAllSongs();
+                    if(loadedPlaylist != null){
+                        loadedPlaylist.showSongs();
+                    }
                     break;
                 case 2:
-                    System.out.println("Enter the name of the new playlist:");
-                    String playlistName = scanner.nextLine();
-                    System.out.println("Enter the author's name:");
-                    String author = scanner.nextLine();
-                    player.createPlaylist(playlistName, author);
+                    if(playlists.isEmpty()){
+                        System.out.println("Плейлистов нету");
+                        continue;
+                    }
+                    for(int i = 1; i < playlists.size() + 1; i++){
+                        System.out.println(i + " - " + playlists.get(i - 1) +
+                                "\nКоличество песен: " + playlists.get(i - 1).size() + "\n");
+                    }
                     break;
                 case 3:
-                    System.out.println("Enter the name of the playlist to load:");
-                    String playlistInput = scanner.nextLine();
-                    player.loadPlaylists(playlistInput);
+                    createPlaylist();
                     break;
                 case 4:
-                    System.out.println("Enter the name or index of the playlist to save:");
-                    String playlistToSave = scanner.nextLine();
-                    player.savePlaylist(playlistToSave);
+                    loadPlaylist();
                     break;
                 case 5:
-                    System.out.println("Enter the index and name of the playlist to delete:");
-                    String playlistToDelete = scanner.nextLine();
-                    int playlistIndex = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
-                    player.deletePlaylist(playlistIndex, playlistToDelete);
+                    savePlaylist();
                     break;
                 case 6:
-                    System.out.println("Enter the playlist number:");
-                    int playlistIndexToAdd = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
-                    System.out.println("Enter the song name:");
-                    String songName = scanner.nextLine();
-                    System.out.println("Enter the artist:");
-                    String artist = scanner.nextLine();
-                    player.addSongToPlaylist(String.valueOf(playlistIndexToAdd), songName, artist);
+                    deletePlaylist();
                     break;
                 case 7:
-                    player.showAllSongs();
+                    addSong();
                     break;
                 case 8:
-                    System.out.println("Enter the playlist number:");
-                    int playlistIndexToRemove = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
-                    System.out.println("Enter the song name:");
-                    String songToRemove = scanner.nextLine();
-                    player.removeSongFromPlaylist(String.valueOf(playlistIndexToRemove), songToRemove);
+                    deleteSong();
                     break;
                 case 9:
-                    player.playPreviousSong();
+                    playSong();
                     break;
                 case 10:
-                    player.playNextSong();
+                    prevSong();
                     break;
                 case 11:
-                    player.repeatCurrentSong();
+                    nextSong();
                     break;
+                case 12:
+                    exportPlaylists();
+                    break;
+                case 13:
+                    importPlaylists();
+                    break;
+
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Введено неверное число!");
+                    break;
             }
-        } while (choice != 0);
-        scanner.close();
+        } while(true);
     }
 }
