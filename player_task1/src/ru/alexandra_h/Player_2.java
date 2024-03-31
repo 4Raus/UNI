@@ -12,9 +12,9 @@ public class Player_2 {
     public static Scanner scanner = new Scanner(System.in);
     public static void createPlaylist() {
         System.out.print("Введите название плейлиста: ");
-        String name = scanner.nextLine();
+        String name = scanner.next();
         System.out.print("Введите имя автора плейлиста: ");
-        String author = scanner.nextLine();
+        String author = scanner.next();
         loadedPlaylist = new Playlist(name, author);
         playingSong = -1;
         System.out.println("Плейлист успешно создан!");
