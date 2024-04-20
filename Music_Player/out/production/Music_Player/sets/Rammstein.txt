@@ -1,0 +1,3 @@
+C:\Users\ASUS\Desktop\UNI\СурГу\Java\Music_Player\Player\src\sets\Rammstein_-_Zerstoren_539821.mp3
+C:\Users\ASUS\Desktop\UNI\СурГу\Java\Music_Player\Player\src\sets\Rammstein_-_Hilf_Mir_63121977.mp3
+C:\Users\ASUS\Desktop\UNI\СурГу\Java\Music_Player\Player\src\sets\Rammstein_-_Mutter_63122001.mp3
